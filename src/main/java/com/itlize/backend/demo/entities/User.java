@@ -8,6 +8,8 @@ public class User {
     @GeneratedValue
     private int id;
 
+    //I made changes here Fangji
+
     @Enumerated(EnumType.STRING)
     private Role role;
 }
