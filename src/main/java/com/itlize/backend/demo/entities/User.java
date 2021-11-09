@@ -9,7 +9,7 @@ public class User {
     private int id;
 
     //I made changes here Fangji
-
+    // 2nd change made
     @Enumerated(EnumType.STRING)
     private Role role;
 }
