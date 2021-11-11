@@ -1,14 +1,17 @@
 server:
   port: 8080
+  servlet:
+    context-path: /
 
 spring:
   datasource:
-    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/resource_management?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
-    username:
-    password:
+    username: root
+    password: 1225
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
+      use-new-id-generator-mappings: false
     show-sql: true
     generate-ddl: true
