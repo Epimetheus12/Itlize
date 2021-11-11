@@ -1,16 +1,13 @@
-package com.itlize.backend.demo.entities;
+package com.itlize.backend.demo.utils.dto;
 
-import javax.persistence.*;
+import com.itlize.backend.demo.entities.Role;
+
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
 
 
-@Entity
-public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    //@SequenceGenerator(name="resource_sequence", sequenceName = "next_val")
+public class UserDto {
     private int id;
     private String username;
     private String password;
@@ -23,9 +20,6 @@ public class User {
 
     @Enumerated(EnumType.STRING)
     private Role role;
-
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Project> projectList = new ArrayList<>();
 
     public int getId() {
         return id;
@@ -83,13 +77,14 @@ public class User {
         this.phone = phone;
     }
 
-    public Timestamp getCreatedTime() {
-        return createdTime;
+    public Role getRole() {
+        return role;
     }
 
-    public void setCreatedTime(Timestamp createdTime) {
-        this.createdTime = createdTime;
+    public void setRole(Role role) {
+        this.role = role;
     }
+
 
     public Timestamp getUpdatedTime() {
         return updatedTime;
@@ -99,19 +94,5 @@ public class User {
         this.updatedTime = updatedTime;
     }
 
-    public Role getRole() {
-        return role;
-    }
 
-    public void setRole(Role role) {
-        this.role = role;
-    }
-
-    public List<Project> getProjectList( ) {
-        return projectList;
-    }
-
-    public void setProjectList(Project project) {
-        this.projectList.add(project);
-    }
 }
