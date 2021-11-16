@@ -64,5 +64,4 @@ public class UserController {
         return new ResponseEntity<>(userService.createOne(u), HttpStatus.CREATED);
     }
 
-
 }

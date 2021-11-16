@@ -12,7 +12,9 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+
 import java.util.stream.Collectors;
+
 
 @Entity
 public class User {
@@ -20,6 +22,14 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @SequenceGenerator(name="user_sequence", sequenceName = "next_val")
     private int id;
+    private String username;
+    private String password;
+    private String firstName;
+    private String lastName;
+    private String email;
+    private String phone;
+    private Timestamp createdTime;
+    private Timestamp updatedTime;
 
     @Column(name = "username",nullable = false,unique = true)
     private String username;
@@ -41,12 +51,14 @@ public class User {
     private List<Project> projects = new ArrayList<>();
 
     public int getId( ) {
+
         return id;
     }
 
     public void setId(int id) {
         this.id = id;
     }
+
 
     public String getUsername( ) {
         return username;
@@ -80,6 +92,7 @@ public class User {
         this.lastName = lastName;
     }
 
+
     public String getEmail( ) {
         return email;
     }
@@ -87,6 +100,7 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
+
 
     public String getPhone( ) {
         return phone;
@@ -111,6 +125,7 @@ public class User {
     public void setUpdatedTime(Timestamp updatedTime) {
         this.updatedTime = updatedTime;
     }
+
 
     public Role getRole( ) {
         return role;

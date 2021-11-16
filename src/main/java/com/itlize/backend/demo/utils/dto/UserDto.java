@@ -1,5 +1,6 @@
 package com.itlize.backend.demo.utils.dto;
 
+
 import java.sql.Timestamp;
 
 public class UserDto {
@@ -58,6 +59,7 @@ public class UserDto {
     public void setEmail(String email) {
         this.email = email;
     }
+
 
     public String getPhone( ) {
         return phone;
