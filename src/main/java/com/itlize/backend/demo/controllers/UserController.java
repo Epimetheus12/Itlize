@@ -1,8 +1,8 @@
 package com.itlize.backend.demo.controllers;
-
 import com.itlize.backend.demo.entities.User;
 import com.itlize.backend.demo.services.ProjectService;
 import com.itlize.backend.demo.services.UserService;
+import com.itlize.backend.demo.utils.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,12 +19,10 @@ import java.util.Date;
 public class UserController {
 
     private final UserService userService;
-    private final ProjectService projectService;
 
     @Autowired
-    public UserController(UserService userService, ProjectService projectService) {
+    public UserController(UserService userService) {
         this.userService = userService;
-        this.projectService = projectService;
     }
 
     @GetMapping("/all")
@@ -48,7 +46,6 @@ public class UserController {
                                         @RequestParam("username") String username,
                                         @RequestParam("email") String email) {
         UserDto dto = new UserDto();
-        dto.setUpdatedTime(new Timestamp(new Date().getTime()));
         dto.setId(id);
         dto.setUsername(username);
         dto.setEmail(email);
@@ -58,18 +55,13 @@ public class UserController {
     @GetMapping("/create/")
     public ResponseEntity<?> createOne(@RequestParam("id") int id,
                                        @RequestParam("username") String username,
-                                       @RequestParam("email") String email) {
+                                       @RequestParam("email") String email,
+                                       @RequestParam("password") String password) {
         User u = new User();
-        u.setCreatedTime(new Timestamp(new Date().getTime()));
         u.setUsername(username);
         u.setEmail(email);
+        u.setPassword(password);
         return new ResponseEntity<>(userService.createOne(u), HttpStatus.CREATED);
-    }
-
-    @GetMapping("/addResource") // Need to work on this part
-    public ResponseEntity<?> addResource(@RequestParam("uid") int pid,
-                                         @RequestParam("pid") int uid){
-        return new ResponseEntity<>(userService.updateRelationship(pid, uid),HttpStatus.CREATED); //Need to fix this
     }
 
 }

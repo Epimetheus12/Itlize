@@ -1,5 +1,6 @@
 package com.itlize.backend.demo.entities;
 
+
 public enum Role {
     root("root"),
     admin("admin"),
@@ -13,4 +14,5 @@ public enum Role {
     public String getName(){
         return this.name;
     }
+
 }

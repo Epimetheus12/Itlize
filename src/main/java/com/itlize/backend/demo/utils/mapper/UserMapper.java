@@ -1,6 +1,5 @@
 package com.itlize.backend.demo.utils.mapper;
 
-
 import com.itlize.backend.demo.entities.User;
 import com.itlize.backend.demo.utils.dto.UserDto;
 import org.mapstruct.BeanMapping;

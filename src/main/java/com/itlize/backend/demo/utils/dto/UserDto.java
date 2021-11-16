@@ -1,11 +1,7 @@
 package com.itlize.backend.demo.utils.dto;
 
-import com.itlize.backend.demo.entities.Role;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import java.sql.Timestamp;
-
 
 public class UserDto {
     private int id;
@@ -15,13 +11,8 @@ public class UserDto {
     private String lastName;
     private String email;
     private String phone;
-    private Timestamp createdTime;
-    private Timestamp updatedTime;
 
-    @Enumerated(EnumType.STRING)
-    private Role role;
-
-    public int getId() {
+    public int getId( ) {
         return id;
     }
 
@@ -29,7 +20,7 @@ public class UserDto {
         this.id = id;
     }
 
-    public String getUsername() {
+    public String getUsername( ) {
         return username;
     }
 
@@ -37,7 +28,7 @@ public class UserDto {
         this.username = username;
     }
 
-    public String getPassword() {
+    public String getPassword( ) {
         return password;
     }
 
@@ -45,7 +36,7 @@ public class UserDto {
         this.password = password;
     }
 
-    public String getFirstName() {
+    public String getFirstName( ) {
         return firstName;
     }
 
@@ -53,7 +44,7 @@ public class UserDto {
         this.firstName = firstName;
     }
 
-    public String getLastName() {
+    public String getLastName( ) {
         return lastName;
     }
 
@@ -61,7 +52,7 @@ public class UserDto {
         this.lastName = lastName;
     }
 
-    public String getEmail() {
+    public String getEmail( ) {
         return email;
     }
 
@@ -69,30 +60,12 @@ public class UserDto {
         this.email = email;
     }
 
-    public String getPhone() {
+
+    public String getPhone( ) {
         return phone;
     }
 
     public void setPhone(String phone) {
         this.phone = phone;
     }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
-
-
-    public Timestamp getUpdatedTime() {
-        return updatedTime;
-    }
-
-    public void setUpdatedTime(Timestamp updatedTime) {
-        this.updatedTime = updatedTime;
-    }
-
-
 }
