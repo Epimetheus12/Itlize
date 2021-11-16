@@ -61,7 +61,7 @@ public class ProjectResourceServiceImpl implements ProjectResourceService {
             ProjectResource projectResource = new ProjectResource();
             projectResource.setProject(project);
             projectResource.setResource(resource);
-            project.setProjectResourceList(projectResource);
+            projectResourceRepository.save(projectResource);
             return true;
         }
         return false;

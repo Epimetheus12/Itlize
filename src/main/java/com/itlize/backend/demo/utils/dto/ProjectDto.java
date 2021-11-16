@@ -9,7 +9,6 @@ public class ProjectDto {
 
     private String projectCode;
 
-    private Date updatedTime;
 
     public int getId( ) {
         return id;
@@ -35,11 +34,4 @@ public class ProjectDto {
         this.projectCode = projectCode;
     }
 
-    public Date getUpdatedTime( ) {
-        return updatedTime;
-    }
-
-    public void setUpdatedTime(Date updatedTime) {
-        this.updatedTime = updatedTime;
-    }
 }

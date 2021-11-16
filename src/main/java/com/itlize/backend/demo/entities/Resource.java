@@ -1,9 +1,11 @@
 package com.itlize.backend.demo.entities;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Entity
 public class Resource {
@@ -13,11 +15,21 @@ public class Resource {
     private int id;
     private String name;
     private String resourceCode;
+
+    @CreationTimestamp
     private Timestamp createdTime;
+    @UpdateTimestamp
     private Timestamp updatedTime;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "resource")
-    private List<ProjectResource> projectResourceList = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, mappedBy = "resource")
+    private Set<ProjectResource> projectResourceSet = new HashSet<>();
+
+//    @OneToMany(mappedBy = "resource", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+//    @MapKeyColumn(name = "columnName")
+//    private Map<String, ProjectColumn> columnMap;
+
+    @OneToMany(mappedBy = "resource", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<ResourceDetails> resourceDetailsList;
 
     public int getId( ) {
         return id;
@@ -59,11 +71,54 @@ public class Resource {
         this.updatedTime = updatedTime;
     }
 
-    public List<ProjectResource> getProjectResourceList( ) {
-        return projectResourceList;
+    public Set<ProjectResource> getProjectResourceSet( ) {
+        return projectResourceSet;
     }
 
-    public void setProjectResourceList(ProjectResource projectResource) {
-        this.projectResourceList.add(projectResource);
+    public void setProjectResourceSet(ProjectResource projectResource) {
+        this.projectResourceSet.add(projectResource);
+    }
+
+    public void setProjectResourceSet(Set<ProjectResource> projectResourceSet) {
+        this.projectResourceSet= projectResourceSet;
+    }
+
+    public List<ResourceDetails> getResourceDetailsList( ) {
+        return resourceDetailsList;
+    }
+
+    public void setResourceDetailsList(List<ResourceDetails> resourceDetailsList) {
+        this.resourceDetailsList = resourceDetailsList;
+    }
+
+    public void setResourceDetailsList(ResourceDetails resourceDetails) {
+        this.resourceDetailsList.add(resourceDetails);
+    }
+
+
+    //    public Map<String, ProjectColumn> getColumnMap( ) {
+//        return columnMap;
+//    }
+//
+//    public void setColumnMap(Map<String, ProjectColumn> columnMap) {
+//        this.columnMap = columnMap;
+//    }
+//
+//    public void setColumnMap(ProjectColumn pc) {
+//        this.columnMap.put(pc.getColumnName(), pc);
+//    }
+
+
+
+    @Override
+    public String toString( ) {
+        return "Resource{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", resourceCode='" + resourceCode + '\'' +
+                ", createdTime=" + createdTime +
+                ", updatedTime=" + updatedTime +
+                ", resourceDetailsList=" + resourceDetailsList +
+                '}';
     }
 }

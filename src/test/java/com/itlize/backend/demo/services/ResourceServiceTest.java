@@ -53,7 +53,7 @@ class ResourceServiceTest {
         ResourceDto dto = new ResourceDto();
         dto.setId(2);
         dto.setName("change_2");
-        dto.setUpdatedTime(new Timestamp(new Date().getTime()));
+//        dto.setUpdatedTime(new Timestamp(new Date().getTime()));
         Resource res = resourceService.updateOneById(dto);
         assertEquals("change_2", res.getName());
         assertEquals("2", res.getResourceCode());
@@ -63,6 +63,6 @@ class ResourceServiceTest {
     void deleteOneById( ) {
         Resource r = new Resource();
         r = resourceService.createOne(r);
-        assertEquals(true, resourceService.deleteOneById(r.getId()));
+        assertEquals(true, resourceService.deleteOne(r));
     }
 }

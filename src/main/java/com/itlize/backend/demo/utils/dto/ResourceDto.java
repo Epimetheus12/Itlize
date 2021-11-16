@@ -6,7 +6,6 @@ public class ResourceDto {
     private int id;
     private String name;
     private String resourceCode;
-    private Timestamp updatedTime;
 
     public int getId( ) {
         return id;
@@ -32,11 +31,4 @@ public class ResourceDto {
         this.resourceCode = resourceCode;
     }
 
-    public Timestamp getUpdatedTime( ) {
-        return updatedTime;
-    }
-
-    public void setUpdatedTime(Timestamp updatedTime) {
-        this.updatedTime = updatedTime;
-    }
 }

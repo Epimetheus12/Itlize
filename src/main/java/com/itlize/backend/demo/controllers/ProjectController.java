@@ -11,9 +11,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.sql.Timestamp;
+import java.util.List;
 
 @RestController
-@RequestMapping("/project")
+@RequestMapping(value = "/project")
 public class ProjectController {
 
     private final ProjectService projectService;
@@ -25,9 +26,13 @@ public class ProjectController {
         this.projectResourceService = projectResourceService;
     }
 
+    /**
+     * need admin or root role
+     */
     @GetMapping("/all")
-    public ResponseEntity<?> allProjectByUserId() {
-        return new ResponseEntity< >(projectService.findAll(), HttpStatus.OK);
+    public ResponseEntity<?> allProjects() {
+        List<Project> list = projectService.findAll();
+        return new ResponseEntity< >(list, HttpStatus.OK);
     }
 
     @GetMapping("/all/")
@@ -40,22 +45,27 @@ public class ProjectController {
         return new ResponseEntity< >(projectService.findOneById(id), HttpStatus.OK);
     }
 
+    /**
+     * root admin or userid owns this
+     */
+
     @GetMapping("/delete/")
     public ResponseEntity<?> deleteById(@RequestParam("id") int id){
-        return new ResponseEntity< >(projectService.deleteOneById(id), HttpStatus.OK);
+        Project project = projectService.findOneById(id);
+        return new ResponseEntity< >(projectService.deleteOne(project), HttpStatus.OK);
     }
 
     @GetMapping("/update/")
     public ResponseEntity<?> updateById(@RequestParam("id") int id,
-                                        @RequestParam("name") String name,
-                                        @RequestParam("projectCode") String projectCode) {
+                                        @RequestParam(value = "name", required = false) String name,
+                                        @RequestParam(value = "projectCode", required = false) String projectCode) {
         ProjectDto dto = new ProjectDto();
-        dto.setUpdatedTime(new Timestamp(new Date().getTime()));
         dto.setId(id);
         dto.setName(name);
         dto.setProjectCode(projectCode);
         return new ResponseEntity<>(projectService.updateOneById(dto), HttpStatus.OK);
     }
+
 
     @GetMapping("/create/")
     public ResponseEntity<?> createOne(@RequestParam("id") int id,
@@ -67,6 +77,7 @@ public class ProjectController {
         p.setProjectCode(projectCode);
         return new ResponseEntity<>(projectService.createOne(p, id), HttpStatus.CREATED);
     }
+
 
     @GetMapping("/addResource")
     public ResponseEntity<?> addResource(@RequestParam("pid") int pid,

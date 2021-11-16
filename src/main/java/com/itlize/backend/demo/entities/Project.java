@@ -1,12 +1,12 @@
 package com.itlize.backend.demo.entities;
 
-import org.springframework.cglib.core.GeneratorStrategy;
-import org.springframework.stereotype.Component;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.sql.Timestamp;
+import java.util.*;
 
 @Entity
 public class Project {
@@ -19,16 +19,23 @@ public class Project {
 
     private String projectCode;
 
-    private Date createdTime;
+    @CreationTimestamp
+    private Timestamp createdTime;
 
-    private Date updatedTime;
+    @UpdateTimestamp
+    private Timestamp updatedTime;
+
 
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE,
             CascadeType.PERSIST, CascadeType.REFRESH}, targetEntity = User.class)
+    @JsonIgnore
     private User user;
 
-    @OneToMany(mappedBy = "project", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<ProjectResource> projectResourceList = new ArrayList<>();
+    @OneToMany(mappedBy = "project", fetch = FetchType.LAZY, cascade = {CascadeType.REMOVE, CascadeType.PERSIST})
+    private Set<ProjectResource> projectResourceSet = new HashSet<>();
+
+    @OneToMany(mappedBy = "project", fetch = FetchType.LAZY, cascade = {CascadeType.REMOVE, CascadeType.PERSIST})
+    private List<ProjectColumn> columnList;
 
     public int getId( ) {
         return id;
@@ -54,19 +61,19 @@ public class Project {
         this.projectCode = projectCode;
     }
 
-    public Date getCreatedTime( ) {
+    public Timestamp getCreatedTime( ) {
         return createdTime;
     }
 
-    public void setCreatedTime(Date createdTime) {
+    public void setCreatedTime(Timestamp createdTime) {
         this.createdTime = createdTime;
     }
 
-    public Date getUpdatedTime( ) {
+    public Timestamp getUpdatedTime( ) {
         return updatedTime;
     }
 
-    public void setUpdatedTime(Date updatedTime) {
+    public void setUpdatedTime(Timestamp updatedTime) {
         this.updatedTime = updatedTime;
     }
 
@@ -78,11 +85,39 @@ public class Project {
         this.user = user;
     }
 
-    public List<ProjectResource> getProjectResourceList( ) {
-        return projectResourceList;
+    public Set<ProjectResource> getProjectResourceSet( ) {
+        return projectResourceSet;
     }
 
-    public void setProjectResourceList(ProjectResource projectResource) {
-        this.projectResourceList.add(projectResource);
+    public void setProjectResourceSet(ProjectResource projectResource) {
+        this.projectResourceSet.add(projectResource);
+    }
+
+    public void setProjectResourceSet(Set<ProjectResource> projectResource) {
+        this.projectResourceSet = projectResource;
+    }
+
+    public List<ProjectColumn> getColumnList( ) {
+        return columnList;
+    }
+
+    public void setColumnList(List<ProjectColumn> columnList) {
+        this.columnList = columnList;
+    }
+
+    public void setColumnList(ProjectColumn projectColumn) {
+        this.columnList.add(projectColumn);
+    }
+
+    @Override
+    public String toString( ) {
+        return "Project{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", projectCode='" + projectCode + '\'' +
+                ", createdTime=" + createdTime +
+                ", updatedTime=" + updatedTime +
+                ", user=" + user.getId() +
+                '}';
     }
 }

@@ -1,10 +1,12 @@
 package com.itlize.backend.demo.services;
 
 import com.itlize.backend.demo.entities.Project;
+import com.itlize.backend.demo.entities.ProjectColumn;
 import com.itlize.backend.demo.utils.dto.ProjectDto;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public interface ProjectService {
@@ -19,7 +21,7 @@ public interface ProjectService {
 
     Project updateOneById(ProjectDto dto);
 
-    Boolean deleteOneById(int id);
+    Boolean deleteOne(Project project);
 
     List<Project> findAllByUserId(int id);
 }

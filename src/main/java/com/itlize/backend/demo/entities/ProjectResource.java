@@ -1,5 +1,7 @@
 package com.itlize.backend.demo.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -9,10 +11,14 @@ public class ProjectResource {
     @SequenceGenerator(name="project_resource_sequence", sequenceName = "next_val")
     private int id;
 
-    @ManyToOne(targetEntity = Project.class, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE,
+            CascadeType.PERSIST, CascadeType.REFRESH}, targetEntity = Project.class)
+    @JsonIgnore
     private Project project;
 
-    @ManyToOne(targetEntity = Resource.class, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE,
+            CascadeType.PERSIST, CascadeType.REFRESH}, targetEntity = Resource.class)
+    @JsonIgnore
     private Resource resource;
 
     public int getId( ) {
@@ -37,5 +43,14 @@ public class ProjectResource {
 
     public void setResource(Resource resource) {
         this.resource = resource;
+    }
+
+    @Override
+    public String toString( ) {
+        return "ProjectResource{" +
+                "id=" + id +
+                ", project=" + project.getId() +
+                ", resource=" + resource.getId() +
+                '}';
     }
 }

@@ -6,6 +6,7 @@ import com.itlize.backend.demo.services.ResourceService;
 import com.itlize.backend.demo.utils.dto.ResourceDto;
 import com.itlize.backend.demo.utils.mapper.ResourceMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,11 +35,11 @@ public class ResourceServiceImpl implements ResourceService {
 
         r1.setName("r1");
         r1.setResourceCode("1");
-        r1.setCreatedTime(new Timestamp(new Date().getTime()));
+//        r1.setCreatedTime(new Timestamp(new Date().getTime()));
 
         r2.setName("r2");
         r2.setResourceCode("2");
-        r2.setCreatedTime(new Timestamp(new Date().getTime()));
+//        r2.setCreatedTime(new Timestamp(new Date().getTime()));
 
         r1 = resourceRepository.save(r1);
         r2 = resourceRepository.save(r2);
@@ -63,14 +64,14 @@ public class ResourceServiceImpl implements ResourceService {
     @Override
     public Resource updateOneById(ResourceDto dto) {
         Resource resource = resourceRepository.findById(dto.getId()).orElse(null);
-        mapper.updateResourceFromDto(dto, resource);
         assert resource != null;
+        mapper.updateResourceFromDto(dto, resource);
         return resourceRepository.save(resource);
     }
 
     @Override
-    public Boolean deleteOneById(int id) {
-        resourceRepository.deleteById(id);
-        return !resourceRepository.existsById(id);
+    public Boolean deleteOne(Resource resource) {
+        resourceRepository.delete(resource);
+        return !resourceRepository.exists(Example.of(resource));
     }
 }

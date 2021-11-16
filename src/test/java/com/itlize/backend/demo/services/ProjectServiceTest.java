@@ -11,9 +11,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 
-import java.sql.Timestamp;
-import java.util.Date;
 import java.util.List;
+
 
 import static org.junit.Assert.*;
 
@@ -68,7 +67,7 @@ class ProjectServiceTest {
         ProjectDto dto = new ProjectDto();
         dto.setId(2);
         dto.setName("change_2");
-        dto.setUpdatedTime(new Timestamp(new Date().getTime()));
+//        dto.setUpdatedTime(new Timestamp(new Date().getTime()));
         Project res = projectService.updateOneById(dto);
         assertEquals("change_2", res.getName());
         assertEquals("2", res.getProjectCode());
@@ -78,7 +77,7 @@ class ProjectServiceTest {
     void deleteOneById( ) {
         Project p = new Project();
         p = projectService.createOne(p, 1);
-        assertEquals(true, projectService.deleteOneById(p.getId()));
+        assertEquals(true, projectService.deleteOne(p));
     }
 
     @Test
@@ -86,4 +85,6 @@ class ProjectServiceTest {
         List<Project> res = projectService.findAllByUserId(1);
         assertEquals(1, res.get(0).getId());
     }
+
+
 }

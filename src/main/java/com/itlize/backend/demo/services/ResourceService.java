@@ -20,5 +20,5 @@ public interface ResourceService {
 
     Resource updateOneById(ResourceDto dto);
 
-    Boolean deleteOneById(int id);
+    Boolean deleteOne(Resource resource);
 }
